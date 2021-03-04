@@ -103,5 +103,5 @@ ttest foods if race != 1, by(metrob)
 ttest hinscaid if race == 1, by(metrob)
 ttest hinscaid if race != 1, by(metrob)
 *interesting, but still statisticall insignificant results
-
+*
 save "H:\onis\Downloads\PUBPOL527\REFORMATTEDPOLICYREPORTACS 2019 weighted subsample.dta", replace
