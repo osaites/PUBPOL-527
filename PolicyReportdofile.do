@@ -25,7 +25,7 @@ replace wadults = 1 if statefip == 53 & age > 25
 *we also probably want to filter the rest of the US by age as well, here's a US adults variable
 
 gen usadults =.
-replace usadults = 1 if statefip =! 53 & age > 25
+replace usadults = 1 if statefip != 53 & age > 25
 
 **--------------Generating Higher Education Variable---------------**
 
