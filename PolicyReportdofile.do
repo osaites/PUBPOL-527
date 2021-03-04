@@ -1,6 +1,9 @@
 clear
 use "H:\onis\Downloads\PUBPOL527\ACS 2019 weighted subsample.dta"
 
+*edit test
+
+
 **METHODS:
 *Using data from the 2019 American Community Survey (ACS), we will examine the use of social safety
 *net programs in relation to educational attainment for observations in the state of Washington. We will
