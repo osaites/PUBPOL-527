@@ -109,7 +109,7 @@ ttest foods if race != 1 & wa == 1, by(highered)
 *when testing between groups in and out of metro there doesn't seem to be an effect based on metro status alone
 ttest foods if wa == 1, by(metrob)
 ttest foods if usa == 1, by(metrob)
-ttest hinscaid is wa == 1, by(metrob)
+ttest hinscaid if wa == 1, by(metrob)
 ttest hinscaid if usa ==1, by(metrob)
 
 ttest foods if race == 1, by(metrob)
