@@ -1,9 +1,6 @@
 clear
 use "H:\onis\Downloads\PUBPOL527\ACS 2019 weighted subsample.dta"
 
-*edit test
-
-
 **METHODS:
 *Using data from the 2019 American Community Survey (ACS), we will examine the use of social safety
 *net programs in relation to educational attainment for observations in the state of Washington. We will
@@ -18,12 +15,17 @@ tab statefip
 tab statefip, nol
 
 **statefip for WA is 53
+
+*********change this from being drop
+
 drop if statefip != 53
 
 drop if age <= 25
 
 **--------------Generating Higher Education Variable---------------**
 
+
+**check out if adding associates degree changes anything
 tab educd
 tab educd, nol
 *101, 114, 115, and 116 are all 4-year degree or above
@@ -103,5 +105,5 @@ ttest foods if race != 1, by(metrob)
 ttest hinscaid if race == 1, by(metrob)
 ttest hinscaid if race != 1, by(metrob)
 *interesting, but still statisticall insignificant results
-*
+
 save "H:\onis\Downloads\PUBPOL527\REFORMATTEDPOLICYREPORTACS 2019 weighted subsample.dta", replace
