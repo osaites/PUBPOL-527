@@ -16,11 +16,16 @@ tab statefip, nol
 
 **statefip for WA is 53
 
-*********change this from being drop
+**generate a variable for those who are in Washington and older than 25
+    **I'm open to changing this to >= to include 25 year olds but it shouldn't matter too much
+    
+gen wadults =. 
+replace wadults = 1 if statefip == 53 & age > 25
 
-drop if statefip != 53
+*we also probably want to filter the rest of the US by age as well, here's a US adults variable
 
-drop if age <= 25
+gen usadults =.
+replace usadults = 1 if statefip =! 53 & age > 25
 
 **--------------Generating Higher Education Variable---------------**
 
@@ -39,6 +44,7 @@ tab highered
 label define highered 0 "No" 1 "Yes"
 label value highered highered
 tab highered
+tab highered if wa == 1
 *about 35.25% of the adult population in WA have a higher education degree
 
 **-------------Metro Area-------------**
@@ -79,8 +85,10 @@ label value hinscaid hinscaid
 **-------------Initial ttests----------**
 
 ttest foods, by(highered)
+ttest foods if wa == 1, by(highered)
 
 ttest hinscaid, by(highered)
+ttest foods if wa == 1, by(highered)
 
 ** these show that there is a difference in foodstamp recipiency and medicaid coverage based on highereducation; using proportions
 
