@@ -86,9 +86,11 @@ label value hinscaid hinscaid
 
 ttest foods, by(highered)
 ttest foods if wa == 1, by(highered)
+ttest foods if usa == 1, by(highered)
 
 ttest hinscaid, by(highered)
 ttest foods if wa == 1, by(highered)
+ttest foods if usa == 1, by(highered)
 
 ** these show that there is a difference in foodstamp recipiency and medicaid coverage based on highereducation; using proportions
 
@@ -98,15 +100,17 @@ tab race, nol
 *White = 1, Black = 2, American Indian or Alaska Native = 3, etc.
 
 *test of only white identifying people
-ttest foods if race == 1, by(highered)
+ttest foods if race == 1 & wa == 1, by(highered)
 *test of those not identifying as white
-ttest foods if race != 1, by(highered)
+ttest foods if race != 1 & wa == 1, by(highered)
 
 *shows greater difference in the effect of highereducation between white and non-white
 
 *when testing between groups in and out of metro there doesn't seem to be an effect based on metro status alone
-ttest foods, by(metrob)
-ttest hinscaid, by(metrob)
+ttest foods if wa == 1, by(metrob)
+ttest foods if usa == 1, by(metrob)
+ttest hinscaid is wa == 1, by(metrob)
+ttest hinscaid if usa ==1, by(metrob)
 
 ttest foods if race == 1, by(metrob)
 ttest foods if race != 1, by(metrob)
