@@ -18,19 +18,22 @@ tab statefip, nol
 
 **generate a variable for those who are in Washington and older than 25
     **I'm open to changing this to >= to include 25 year olds but it shouldn't matter too much
-    
+
+*also generating a variable for adults in the US in general, this excludes WA but it shouldn't make much difference
+gen usadults =.
+replace usadults = 1 if statefip != 53 & age > 25   
+
 gen wadults =. 
 replace wadults = 1 if statefip == 53 & age > 25
+replace wadults = 0 if usa == 1
 
-*we also probably want to filter the rest of the US by age as well, here's a US adults variable
 
-gen usadults =.
-replace usadults = 1 if statefip != 53 & age > 25
+
+
 
 **--------------Generating Higher Education Variable---------------**
 
 
-**check out if adding associates degree changes anything
 tab educd
 tab educd, nol
 *101, 114, 115, and 116 are all 4-year degree or above
@@ -46,6 +49,11 @@ label value highered highered
 tab highered
 tab highered if wa == 1
 *about 35.25% of the adult population in WA have a higher education degree
+
+*to include associates degrees
+gen higherassociate =.
+replace highera = 1 if educd > 80
+replace highera = 0 if educd < 80
 
 **-------------Metro Area-------------**
 
