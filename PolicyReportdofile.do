@@ -18,21 +18,17 @@ tab statefip, nol
 
 **generate a variable for those who are in Washington and older than 25
     **I'm open to changing this to >= to include 25 year olds but it shouldn't matter too much
+	*****I have it as greater than 21 right now to align with what's currently in the intro
 
 *also generating a variable for adults in the US in general, this excludes WA but it shouldn't make much difference
 gen usadults =.
-replace usadults = 1 if statefip != 53 & age > 25   
+replace usadults = 1 if statefip != 53 & age > 21   
 
 gen wadults =. 
-replace wadults = 1 if statefip == 53 & age > 25
+replace wadults = 1 if statefip == 53 & age > 21
 replace wadults = 0 if usa == 1
 
-
-
-
-
 **--------------Generating Higher Education Variable---------------**
-
 
 tab educd
 tab educd, nol
@@ -70,6 +66,10 @@ gen seattle =.
 replace seattle = 1 if city == 6430
 replace seattle = 0 if city == 0
 
+**----------Race-------------**
+
+* can either create a binary from the race variables
+* or can use racwht which is already a binary
 
 
 **-------------Food Stamps-------------**
@@ -80,6 +80,9 @@ replace foods = 1 if foods == 2
 label define foods 0 "Not a recipient" 1 "Food stamp recipient"
 label value foods foods
 
+tab foods if usa==1
+tab foods if wa ==1
+
 
 **-------------Medicaid----------------**
 tab hinscaid
@@ -88,6 +91,8 @@ replace hinscaid = 1 if hinscaid == 2
 label define hinscaid 0 "Not Covered by Medicaid" 1 "Covered by Medicaid"
 label value hinscaid hinscaid
 
+tab hinscaid if usa ==1
+tab hinscaid if wa ==1
 
 
 **-------------Initial ttests----------**
@@ -97,8 +102,8 @@ ttest foods if wa == 1, by(highered)
 ttest foods if usa == 1, by(highered)
 
 ttest hinscaid, by(highered)
-ttest foods if wa == 1, by(highered)
-ttest foods if usa == 1, by(highered)
+ttest hinscaid if wa == 1, by(highered)
+ttest hinscaid if usa == 1, by(highered)
 
 ** these show that there is a difference in foodstamp recipiency and medicaid coverage based on highereducation; using proportions
 
