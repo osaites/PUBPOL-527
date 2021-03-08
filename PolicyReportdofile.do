@@ -25,8 +25,8 @@ gen usadults =.
 replace usadults = 1 if statefip != 53 & age > 21   
 
 gen wadults =. 
-replace wadults = 1 if statefip == 53 & age > 21
 replace wadults = 0 if usa == 1
+replace wadults = 1 if statefip == 53 & age > 21
 
 **--------------Generating Higher Education Variable---------------**
 
