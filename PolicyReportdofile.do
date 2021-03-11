@@ -22,34 +22,27 @@ tab statefip, nol
 
 *also generating a variable for adults in the US in general, this excludes WA but it shouldn't make much difference
 gen usadults =.
-replace usadults = 1 if statefip != 53 & age > 21   
+replace usadults = 1 if age > 21   
 
 gen wadults =. 
 replace wadults = 0 if usa == 1
 replace wadults = 1 if statefip == 53 & age > 21
 
+
 **--------------Generating Higher Education Variable---------------**
 
 tab educd
 tab educd, nol
-*101, 114, 115, and 116 are all 4-year degree or above
+*81 is Associate's degree and 101, 114, 115, and 116 are all 4-year degree or above
 * can consider this as having received a higher education
 
-gen highered =.
-replace highered = 1 if educd > 100
-replace highered = 0 if educd <100
-
-tab highered
-label define highered 0 "No" 1 "Yes"
-label value highered highered
-tab highered
-tab highered if wa == 1
-*about 35.25% of the adult population in WA have a higher education degree
-
-*to include associates degrees
 gen higherassociate =.
 replace highera = 1 if educd > 80
 replace highera = 0 if educd < 80
+label define highera 0 "No Degree" 1 "Degree"
+label value highera highera
+tab highera if wa==1
+tab highera if usa==1
 
 **-------------Metro Area-------------**
 
@@ -68,8 +61,8 @@ replace seattle = 0 if city == 0
 
 **----------Race-------------**
 
-* can either create a binary from the race variables
-* or can use racwht which is already a binary
+* use binary of racwht
+tab racwht
 
 
 **-------------Food Stamps-------------**
@@ -97,27 +90,15 @@ tab hinscaid if wa ==1
 
 **-------------Initial ttests----------**
 
-ttest foods, by(highered)
-ttest foods if wa == 1, by(highered)
-ttest foods if usa == 1, by(highered)
+ttest foods, by(highera)
+ttest foods if wa == 1, by(highera)
+ttest foods if usa == 1, by(highera)
 
-ttest hinscaid, by(highered)
-ttest hinscaid if wa == 1, by(highered)
-ttest hinscaid if usa == 1, by(highered)
+ttest hinscaid, by(highera)
+ttest hinscaid if wa == 1, by(highera)
+ttest hinscaid if usa == 1, by(highera)
 
 ** these show that there is a difference in foodstamp recipiency and medicaid coverage based on highereducation; using proportions
-
-tab race
-tab race, nol
-*identifies codes for various races
-*White = 1, Black = 2, American Indian or Alaska Native = 3, etc.
-
-*test of only white identifying people
-ttest foods if race == 1 & wa == 1, by(highered)
-*test of those not identifying as white
-ttest foods if race != 1 & wa == 1, by(highered)
-
-*shows greater difference in the effect of highereducation between white and non-white
 
 *when testing between groups in and out of metro there doesn't seem to be an effect based on metro status alone
 ttest foods if wa == 1, by(metrob)
@@ -130,5 +111,10 @@ ttest foods if race != 1, by(metrob)
 ttest hinscaid if race == 1, by(metrob)
 ttest hinscaid if race != 1, by(metrob)
 *interesting, but still statisticall insignificant results
+
+**Graph
+
+graph bar foods, over(highera) over(racwht)
+
 
 save "H:\onis\Downloads\PUBPOL527\REFORMATTEDPOLICYREPORTACS 2019 weighted subsample.dta", replace
