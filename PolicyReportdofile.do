@@ -61,8 +61,11 @@ replace seattle = 0 if wa == 1 & city != 6430
 
 **----------Race-------------**
 
-* use binary of racwht
-tab racwht
+*generate a binary from race for white/non-white
+tab race
+gen wwht =. 
+replace wwht = 1 if race == 1
+replace wwht = 0 if race != 1
 
 
 **-------------Food Stamps-------------**
@@ -95,25 +98,25 @@ ttest hinscaid, by(highera)
 
 **food stamps ttests for WA adults**
 ttest foods if wa == 1, by(highera)
-ttest foods if wa == 1, by(racwht)
+ttest foods if wa == 1, by(wwht)
 ttest foods if wa == 1, by(metrob)
 ttest foods if wa == 1, by(seattle)
 
 **for US adults
 ttest foods if usa == 1, by(highera)
-ttest foods if usa == 1, by(racwht)
+ttest foods if usa == 1, by(wwht)
 ttest foods if usa == 1, by(metrob)
 
 **Medicaid ttests for WA adults**
 
 ttest hinscaid if wa == 1, by(highera)
-ttest hinscaid if wa == 1, by(racwht)
+ttest hinscaid if wa == 1, by(wwht)
 ttest hinscaid if wa == 1, by(metrob)
 ttest hinscaid if wa == 1, by(seattle)
 
 **for US adults
 ttest hinscaid if usa == 1, by(highera)
-ttest hinscaid if usa == 1, by(racwht)
+ttest hinscaid if usa == 1, by(wwht)
 ttest hinscaid if usa == 1, by(metrob)
 
 **Graph
