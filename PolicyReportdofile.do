@@ -48,12 +48,16 @@ tab metro
 tab metro, nol
 replace metro =. if metro == 0
 
+
 *create binary for ttests later
 gen metrobinary = 1 if metro >= 2
 replace metrobinary = 0 if metro == 1
 label define metrob 0 "Not in Metropolitan Area" 1 "In Metropolitan Area"
 label value metrob metrob
 
+gen seattle =.
+replace seattle = 1 if wa == 1 & city == 6430
+replace seattle = 0 if wa == 1 & city != 6430
 
 **----------Race-------------**
 
