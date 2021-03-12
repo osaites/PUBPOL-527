@@ -97,6 +97,7 @@ ttest hinscaid, by(highera)
 ttest foods if wa == 1, by(highera)
 ttest foods if wa == 1, by(racwht)
 ttest foods if wa == 1, by(metrob)
+ttest foods if wa == 1, by(seattle)
 
 **for US adults
 ttest foods if usa == 1, by(highera)
@@ -108,6 +109,7 @@ ttest foods if usa == 1, by(metrob)
 ttest hinscaid if wa == 1, by(highera)
 ttest hinscaid if wa == 1, by(racwht)
 ttest hinscaid if wa == 1, by(metrob)
+ttest hinscaid if wa == 1, by(seattle)
 
 **for US adults
 ttest hinscaid if usa == 1, by(highera)
