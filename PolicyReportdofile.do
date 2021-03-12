@@ -10,17 +10,14 @@ use "H:\onis\Downloads\PUBPOL527\ACS 2019 weighted subsample.dta"
 *analyze how education affects these variables within different subgroups based on race and metropolitan
 *status.
 
-**filtering observations to WA, older than 25
+**----------------filtering observations to WA, older than 25------**
 tab statefip
 tab statefip, nol
 
 **statefip for WA is 53
 
-**generate a variable for those who are in Washington and older than 25
-    **I'm open to changing this to >= to include 25 year olds but it shouldn't matter too much
-	*****I have it as greater than 21 right now to align with what's currently in the intro
+**generate a variable for adults in the US and WA over 21
 
-*also generating a variable for adults in the US in general, this excludes WA but it shouldn't make much difference
 gen usadults =.
 replace usadults = 1 if age > 21   
 
@@ -33,6 +30,7 @@ replace wadults = 1 if statefip == 53 & age > 21
 
 tab educd
 tab educd, nol
+
 *81 is Associate's degree and 101, 114, 115, and 116 are all 4-year degree or above
 * can consider this as having received a higher education
 
@@ -55,9 +53,7 @@ gen metrobinary = 1 if metro >= 2
 replace metrobinary = 0 if metro == 1
 label define metrob 0 "Not in Metropolitan Area" 1 "In Metropolitan Area"
 label value metrob metrob
-gen seattle =.
-replace seattle = 1 if city == 6430
-replace seattle = 0 if city == 0
+
 
 **----------Race-------------**
 
@@ -91,26 +87,28 @@ tab hinscaid if wa ==1
 **-------------Initial ttests----------**
 
 ttest foods, by(highera)
-ttest foods if wa == 1, by(highera)
-ttest foods if usa == 1, by(highera)
-
 ttest hinscaid, by(highera)
-ttest hinscaid if wa == 1, by(highera)
-ttest hinscaid if usa == 1, by(highera)
 
-** these show that there is a difference in foodstamp recipiency and medicaid coverage based on highereducation; using proportions
-
-*when testing between groups in and out of metro there doesn't seem to be an effect based on metro status alone
+**food stamps ttests for WA adults**
+ttest foods if wa == 1, by(highera)
+ttest foods if wa == 1, by(racwht)
 ttest foods if wa == 1, by(metrob)
-ttest foods if usa == 1, by(metrob)
-ttest hinscaid if wa == 1, by(metrob)
-ttest hinscaid if usa ==1, by(metrob)
 
-ttest foods if race == 1, by(metrob)
-ttest foods if race != 1, by(metrob)
-ttest hinscaid if race == 1, by(metrob)
-ttest hinscaid if race != 1, by(metrob)
-*interesting, but still statisticall insignificant results
+**for US adults
+ttest foods if usa == 1, by(highera)
+ttest foods if usa == 1, by(racwht)
+ttest foods if usa == 1, by(metrob)
+
+**Medicaid ttests for WA adults**
+
+ttest hinscaid if wa == 1, by(highera)
+ttest hinscaid if wa == 1, by(racwht)
+ttest hinscaid if wa == 1, by(metrob)
+
+**for US adults
+ttest hinscaid if usa == 1, by(highera)
+ttest hinscaid if usa == 1, by(racwht)
+ttest hinscaid if usa == 1, by(metrob)
 
 **Graph
 
