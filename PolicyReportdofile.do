@@ -90,6 +90,18 @@ label value hinscaid hinscaid
 tab hinscaid if usa ==1
 tab hinscaid if wa ==1
 
+**----------Confidence Intervals------**
+
+ci means foods if wa == 1
+ci means foods if usa == 1
+ci means hinscaid if wa == 1
+ci means hinscaid if usa ==1
+ci means highera if wa==1
+ci means highera if usa==1
+ci means wwht if wa ==1
+ci means wwht if usa == 1
+ci means metrob if wa ==1
+ci means metrob if usa ==1
 
 **-------------Initial ttests----------**
 
