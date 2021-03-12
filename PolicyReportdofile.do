@@ -118,7 +118,24 @@ ttest hinscaid if usa == 1, by(metrob)
 
 **Graph
 
-graph bar foods, over(highera) over(racwht)
+graph bar if wa==1, over(foods) ascategory asyvars bar(1, fcolor(green)) bar(2, fcolor(blue)) ///
+title("What percent of Washington adults use SNAP Food Stamps?" ///
+, span size(medium)) ///
+ytitle("Percent of Household Responses") ///
+note("Horizonal line indicates National average SNAP use.", size(medium) position(5)) ///
+caption("From the 2019 ACS dataset", size(vsmall) position(5)) ///
+blabel(bar, format(%4.1f)) ///
+intensity(25) ///
+yline(13)
 
+graph bar if wa==1, over(hinscaid) ascategory asyvars bar(1, fcolor(green)) bar(2, fcolor(blue)) ///
+title("What percent of Washington adults use Medicaid?" ///
+, span size(medium)) ///
+note("Horizonal line indicates National average Medicaid use.", size(medium) position(5)) ///
+caption("From the 2019 ACS dataset", size(vsmall) position(5)) ///
+ytitle("Percent of Household Responses") ///
+blabel(bar, format(%4.1f)) ///
+intensity(25) ///
+yline(20)
 
 save "H:\onis\Downloads\PUBPOL527\REFORMATTEDPOLICYREPORTACS 2019 weighted subsample.dta", replace
